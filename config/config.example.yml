@@ -1,0 +1,26 @@
+# Example configuration for livetrail-follow.
+# Copy this file to the path resolved at startup (CLI --config, then
+# LIVETRAIL_FOLLOW_CONFIG env var, then /etc/livetrail-follow/config.yml)
+# and adjust the values below.
+
+webhook:
+  endpoint: "https://notify.example.net/api/send"
+  module: "sms"
+  topic: "livetrail"
+  timeout_seconds: 10
+  max_retries: 3
+  retry_backoff_seconds: 5
+
+poll_interval_seconds: 30
+
+admin_recipient: "superadmins"
+
+state_file: "/data/state.json"
+
+runners:
+  - name: "Tom Evans"
+    url: "https://grandraid-reunion.v3.livetrail.net/en/2026/runners/373?raceId=GRR"
+    recipient: "followers-grr"
+  - name: "Blandine L'Hirondel"
+    url: "https://grandraid-reunion.v3.livetrail.net/en/2026/runners/4507?raceId=MAS"
+    recipient: "followers-mas"
