@@ -86,3 +86,17 @@ make run   # dans un conteneur podman
 `make run` monte `config/config.example.yml` (modifiable via `CONFIG_FILE=...`)
 sur `/etc/livetrail-follow/config.yml` et un dossier `./data` (via `DATA_DIR=...`)
 sur `/data` pour l'etat persistant (`state.json`).
+
+## CI/CD
+
+`make version` affiche la version courante (lue depuis `__version__` dans
+`src/livetrail_follow/__init__.py`), utilisee comme tag de l'image conteneur.
+
+Deux workflows GitHub Actions se declenchent a chaque push sur `main` :
+
+- `container.yml` : construit l'image avec `make build`, puis la tague et la
+  pousse sur GitHub Container Registry (`ghcr.io/<repo>:latest`).
+- `release.yml` : recupere la version via `make version` et cree une release
+  GitHub `v<version>` avec notes auto-generees si elle n'existe pas encore.
+  Si la release existe deja, le workflow ne fait rien, il est donc sans
+  risque de le lancer a chaque push.

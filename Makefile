@@ -10,7 +10,7 @@ CONFIG_FILE ?= config/config.example.yml
 DATA_DIR    ?= $(CURDIR)/data
 
 .DEFAULT_GOAL := help
-.PHONY: help build run clean
+.PHONY: help build run clean version
 
 ## help   : Show this help message
 help:
@@ -30,6 +30,10 @@ run: build
 		-v $(CURDIR)/$(CONFIG_FILE):/etc/livetrail-follow/config.yml:ro,z \
 		-v $(DATA_DIR):/data:z \
 		$(IMAGE_REF)
+
+## version : Print the current version
+version:
+	@echo $(VERSION)
 
 ## clean  : Remove the container image and exported archive
 clean:
